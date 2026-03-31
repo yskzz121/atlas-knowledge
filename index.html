@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="ja" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Atlas Knowledge Base</title>
+<link rel="icon" type="image/png" href="https://raw.githubusercontent.com/yskzz121/ui-kabu-reports/main/favicon.png">
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@700;800&family=Noto+Sans+JP:wght@400;500;700&family=Playfair+Display:wght@700;900&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F5F2EC;--surface:#fff;--border:#e0dbd3;
+  --text:#1a1a2e;--text-sub:#5a5a6e;
+  --navy:#1A2540;--gold:#B8912A;--gold-light:#D4A843;
+  --paper:#F5F2EC;
+}
+[data-theme="dark"]{
+  --bg:#0F1829;--surface:#161b22;--border:#21262d;
+  --text:#e6edf3;--text-sub:#8b949e;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Noto Sans JP',sans-serif;background:var(--bg);color:var(--text);line-height:1.8}
+
+/* Header */
+.header{background:linear-gradient(135deg,#1a2332 0%,#1A2540 50%,#0F1829 100%);padding:60px 20px;text-align:center;position:relative;overflow:hidden}
+.header::before{content:'';position:absolute;top:0;left:0;right:0;bottom:0;background:radial-gradient(ellipse at 30% 50%,rgba(184,145,42,0.08) 0%,transparent 60%),radial-gradient(ellipse at 70% 50%,rgba(184,145,42,0.06) 0%,transparent 60%)}
+.header-content{position:relative;z-index:1}
+.header h1{font-family:'Shippori Mincho B1',serif;font-size:2.4em;font-weight:800;color:#fff;margin-bottom:4px}
+.header .subtitle{color:rgba(255,255,255,0.6);font-size:1.05em;margin-top:8px}
+.header .badge{display:inline-block;background:rgba(184,145,42,0.15);border:1px solid rgba(184,145,42,0.3);border-radius:8px;padding:6px 18px;font-size:13px;color:#D4A843;margin-bottom:16px;letter-spacing:2px}
+
+/* Nav */
+.nav{background:var(--surface);border-bottom:1px solid var(--border);padding:12px 20px;display:flex;justify-content:center;gap:24px;align-items:center}
+.nav a{color:var(--text-sub);text-decoration:none;font-size:.85em;transition:color .15s}
+.nav a:hover{color:var(--gold)}
+.theme-toggle{background:none;border:1px solid var(--border);border-radius:6px;padding:4px 10px;cursor:pointer;font-size:.85em;color:var(--text-sub)}
+
+/* Main */
+.container{max-width:960px;margin:0 auto;padding:40px 20px}
+
+/* Stats */
+.stats{display:flex;gap:16px;margin-bottom:40px;justify-content:center;flex-wrap:wrap}
+.stat-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:20px 28px;text-align:center;min-width:140px}
+.stat-num{font-family:'Playfair Display',serif;font-size:2em;font-weight:900;color:var(--gold)}
+.stat-label{font-size:.8em;color:var(--text-sub);margin-top:4px}
+
+/* Category */
+.category{margin-bottom:40px}
+.category-title{font-family:'Shippori Mincho B1',serif;font-size:1.3em;font-weight:700;margin-bottom:16px;padding-bottom:8px;border-bottom:2px solid var(--gold);display:flex;align-items:center;gap:8px}
+
+/* Article Card */
+.article-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px}
+.article-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:24px;transition:all .2s;text-decoration:none;color:var(--text);display:block}
+.article-card:hover{border-color:var(--gold);box-shadow:0 4px 16px rgba(184,145,42,0.1);transform:translateY(-2px)}
+.article-card .card-tag{display:inline-block;background:rgba(184,145,42,0.1);color:var(--gold);font-size:.7em;padding:2px 10px;border-radius:4px;margin-bottom:8px;font-weight:600}
+.article-card h3{font-size:1em;font-weight:700;margin-bottom:8px;line-height:1.5}
+.article-card .card-desc{font-size:.85em;color:var(--text-sub);line-height:1.6}
+.article-card .card-meta{font-size:.75em;color:var(--text-sub);margin-top:12px;display:flex;justify-content:space-between}
+
+/* Footer */
+.footer{text-align:center;padding:40px 20px;color:var(--text-sub);font-size:.8em;border-top:1px solid var(--border);margin-top:60px}
+
+/* Responsive */
+@media(max-width:768px){
+  .header h1{font-size:1.6em}
+  .stats{flex-direction:column;align-items:center}
+  .article-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<div class="header">
+<div class="header-content">
+<div class="badge">KNOWLEDGE BASE</div>
+<h1>Atlas Knowledge Base</h1>
+<div class="subtitle">学んだことを蓄積し、知識を資産に変える</div>
+</div>
+</div>
+
+<div class="nav">
+<a href="#infra">インフラ・サーバー</a>
+<a href="#finance">金融・投資</a>
+<a href="#business">ビジネス・法務</a>
+<a href="#tech">テクノロジー</a>
+<button class="theme-toggle" onclick="toggleTheme()">🌙</button>
+</div>
+
+<div class="container">
+
+<!-- Stats -->
+<div class="stats">
+<div class="stat-card">
+<div class="stat-num">1</div>
+<div class="stat-label">記事数</div>
+</div>
+<div class="stat-card">
+<div class="stat-num">4</div>
+<div class="stat-label">カテゴリ</div>
+</div>
+<div class="stat-card">
+<div class="stat-num">10</div>
+<div class="stat-label">用語</div>
+</div>
+</div>
+
+<!-- Category: Infrastructure -->
+<div class="category" id="infra">
+<div class="category-title">🖥️ インフラ・サーバー</div>
+<div class="article-grid">
+<a class="article-card" href="articles/domain-dns-guide.html">
+<span class="card-tag">DNS / ドメイン</span>
+<h3>ドメインとサーバーの世界 — ゼロから理解する完全ガイド</h3>
+<p class="card-desc">ドメイン、DNS、Aレコード、CNAME、TXTレコード、SSL証明書...ウェブサイト公開の裏側で何が起きているのかをメタファーで理解する。</p>
+<div class="card-meta">
+<span>2026年3月31日</span>
+<span>📖 10分</span>
+</div>
+</a>
+</div>
+</div>
+
+<!-- Category: Finance -->
+<div class="category" id="finance">
+<div class="category-title">💰 金融・投資</div>
+<div class="article-grid">
+<div class="article-card" style="opacity:0.4;pointer-events:none">
+<span class="card-tag">Coming Soon</span>
+<h3>準備中</h3>
+<p class="card-desc">金融・投資に関する知識が追加されます。</p>
+</div>
+</div>
+</div>
+
+<!-- Category: Business -->
+<div class="category" id="business">
+<div class="category-title">📋 ビジネス・法務</div>
+<div class="article-grid">
+<div class="article-card" style="opacity:0.4;pointer-events:none">
+<span class="card-tag">Coming Soon</span>
+<h3>準備中</h3>
+<p class="card-desc">ビジネス・法務に関する知識が追加されます。</p>
+</div>
+</div>
+</div>
+
+<!-- Category: Tech -->
+<div class="category" id="tech">
+<div class="category-title">⚡ テクノロジー</div>
+<div class="article-grid">
+<div class="article-card" style="opacity:0.4;pointer-events:none">
+<span class="card-tag">Coming Soon</span>
+<h3>準備中</h3>
+<p class="card-desc">テクノロジーに関する知識が追加されます。</p>
+</div>
+</div>
+</div>
+
+</div>
+
+<div class="footer">
+Atlas Knowledge Base — Built with Atlas VI<br>
+学びの旅に終わりはない
+</div>
+
+<script>
+function toggleTheme(){
+  var t=document.documentElement.getAttribute('data-theme')==='dark'?'light':'dark';
+  document.documentElement.setAttribute('data-theme',t);
+  localStorage.setItem('atlas-kb-theme',t);
+  document.querySelector('.theme-toggle').textContent=t==='dark'?'☀️':'🌙';
+}
+(function(){
+  var s=localStorage.getItem('atlas-kb-theme');
+  if(s==='dark'){document.documentElement.setAttribute('data-theme','dark');document.querySelector('.theme-toggle').textContent='☀️';}
+})();
+</script>
+</body>
+</html>

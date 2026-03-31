@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="ja" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>ドメインとサーバーの世界 — Atlas Knowledge Base</title>
+<link rel="icon" type="image/png" href="https://raw.githubusercontent.com/yskzz121/ui-kabu-reports/main/favicon.png">
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@700;800&family=Noto+Sans+JP:wght@400;500;700&family=Noto+Serif+JP:wght@400;700&family=Playfair+Display:wght@700;900&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F5F2EC;--surface:#fff;--border:#e0dbd3;
+  --text:#1a1a2e;--text-sub:#5a5a6e;--text-body:#2a2a3e;
+  --navy:#1A2540;--gold:#B8912A;--gold-light:#D4A843;
+  --green:#2e7d32;--red:#c62828;--blue:#1565c0;
+  --code-bg:#f0ede6;
+}
+[data-theme="dark"]{
+  --bg:#0F1829;--surface:#161b22;--border:#21262d;
+  --text:#e6edf3;--text-sub:#8b949e;--text-body:#c9d1d9;
+  --code-bg:#1c2333;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Noto Sans JP',sans-serif;background:var(--bg);color:var(--text);line-height:1.9}
+
+/* Header */
+.header{background:linear-gradient(135deg,#1a2332 0%,#1A2540 50%,#0F1829 100%);padding:50px 20px 40px;text-align:center;position:relative;overflow:hidden}
+.header::before{content:'';position:absolute;top:0;left:0;right:0;bottom:0;background:radial-gradient(ellipse at 30% 50%,rgba(184,145,42,0.08) 0%,transparent 60%),radial-gradient(ellipse at 70% 50%,rgba(184,145,42,0.06) 0%,transparent 60%)}
+.header-content{position:relative;z-index:1}
+.header .tag{display:inline-block;background:rgba(184,145,42,0.15);border:1px solid rgba(184,145,42,0.3);border-radius:6px;padding:4px 14px;font-size:12px;color:#D4A843;margin-bottom:12px;letter-spacing:1px}
+.header h1{font-family:'Shippori Mincho B1',serif;font-size:2em;font-weight:800;color:#fff;margin-bottom:8px;line-height:1.4}
+.header .meta{color:rgba(255,255,255,0.5);font-size:.85em}
+
+/* Nav */
+.top-nav{background:var(--surface);border-bottom:1px solid var(--border);padding:10px 20px;display:flex;justify-content:space-between;align-items:center;max-width:100%}
+.top-nav a{color:var(--gold);text-decoration:none;font-size:.85em;display:flex;align-items:center;gap:4px}
+.top-nav a:hover{text-decoration:underline}
+.theme-toggle{background:none;border:1px solid var(--border);border-radius:6px;padding:4px 10px;cursor:pointer;font-size:.85em;color:var(--text-sub)}
+
+/* Article */
+.container{max-width:760px;margin:0 auto;padding:40px 20px 80px}
+
+.section{margin-bottom:48px}
+.section-num{font-family:'Playfair Display',serif;font-size:3em;font-weight:900;color:var(--gold);opacity:0.2;line-height:1;margin-bottom:-10px}
+.section h2{font-family:'Shippori Mincho B1',serif;font-size:1.4em;font-weight:700;margin-bottom:16px;padding-bottom:8px;border-bottom:2px solid var(--gold)}
+.section h3{font-size:1.1em;font-weight:700;margin:24px 0 12px;color:var(--gold-light)}
+
+p{font-family:'Noto Serif JP','Noto Sans JP',serif;color:var(--text-body);margin-bottom:16px;font-size:.95em}
+
+/* Metaphor Box */
+.metaphor{background:var(--surface);border:1px solid var(--border);border-left:4px solid var(--gold);border-radius:0 10px 10px 0;padding:20px 24px;margin:20px 0}
+.metaphor-label{font-size:.75em;color:var(--gold);font-weight:700;letter-spacing:1px;margin-bottom:6px}
+.metaphor p{margin-bottom:0}
+
+/* Code / Diagram */
+.diagram{background:var(--code-bg);border:1px solid var(--border);border-radius:10px;padding:20px 24px;margin:20px 0;font-family:'Inter',monospace;font-size:.85em;line-height:1.8;overflow-x:auto;white-space:pre;color:var(--text)}
+
+/* Table */
+.tbl-wrap{overflow-x:auto;margin:20px 0}
+table{width:100%;border-collapse:collapse;font-size:.88em}
+th{background:rgba(184,145,42,0.08);padding:10px 14px;text-align:left;font-weight:600;border-bottom:2px solid var(--border);white-space:nowrap}
+td{padding:10px 14px;border-bottom:1px solid var(--border)}
+tr:hover{background:rgba(184,145,42,0.03)}
+
+/* Term Card */
+.term-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px;margin:20px 0}
+.term-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:16px;text-align:center}
+.term-card .term-name{font-weight:700;font-size:.9em;margin-bottom:4px}
+.term-card .term-meaning{font-size:.8em;color:var(--text-sub)}
+.term-card .term-metaphor{font-size:.75em;color:var(--gold);margin-top:4px}
+
+/* History */
+.timeline{position:relative;padding-left:32px;margin:20px 0}
+.timeline::before{content:'';position:absolute;left:12px;top:0;bottom:0;width:2px;background:var(--gold);opacity:0.3}
+.timeline-item{position:relative;margin-bottom:20px}
+.timeline-item::before{content:'';position:absolute;left:-24px;top:8px;width:10px;height:10px;border-radius:50%;background:var(--gold)}
+.timeline-year{font-family:'Playfair Display',serif;font-weight:700;color:var(--gold);font-size:.9em}
+.timeline-desc{font-size:.88em;color:var(--text-sub)}
+
+/* Highlight */
+.highlight{background:rgba(184,145,42,0.1);padding:2px 6px;border-radius:4px;font-weight:600}
+
+/* Footer */
+.footer{text-align:center;padding:30px 20px;color:var(--text-sub);font-size:.8em;border-top:1px solid var(--border)}
+
+/* Responsive */
+@media(max-width:768px){
+  .header h1{font-size:1.4em}
+  .section-num{font-size:2em}
+  .term-grid{grid-template-columns:1fr 1fr}
+}
+@media(max-width:480px){
+  .term-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<div class="top-nav">
+<a href="../index.html">← Knowledge Base に戻る</a>
+<button class="theme-toggle" onclick="toggleTheme()">🌙</button>
+</div>
+
+<div class="header">
+<div class="header-content">
+<div class="tag">インフラ・サーバー</div>
+<h1>ドメインとサーバーの世界<br>ゼロから理解する完全ガイド</h1>
+<div class="meta">2026年3月31日 ｜ 📖 10分</div>
+</div>
+</div>
+
+<div class="container">
+
+<!-- Section 1 -->
+<div class="section">
+<div class="section-num">01</div>
+<h2>ドメインとは何か</h2>
+
+<p>ウェブサイトにアクセスするとき、ブラウザに <span class="highlight">atlas-financials.jp</span> と入力しますよね。これが「ドメイン」です。</p>
+
+<p>しかし、コンピュータ同士は実際には <span class="highlight">185.199.108.153</span> のような数字の羅列（IPアドレス）で通信しています。ドメインは、人間が覚えやすいように付けた「名前」にすぎません。</p>
+
+<div class="metaphor">
+<div class="metaphor-label">メタファー</div>
+<p>ドメインは「住所」、IPアドレスは「緯度経度」。あなたの家は「東京都港区赤坂1-1-1」で届くけれど、GPSでは「北緯35.6762°、東経139.7100°」。人間は住所を使い、機械は座標を使う。インターネットも同じ構造。</p>
+</div>
+</div>
+
+<!-- Section 2 -->
+<div class="section">
+<div class="section-num">02</div>
+<h2>DNS — インターネットの電話帳</h2>
+
+<p><span class="highlight">DNS（Domain Name System）</span>は、ドメイン名をIPアドレスに変換するシステムです。誰かが atlas-financials.jp にアクセスすると、まずDNSに「このドメインのIPアドレスは？」と問い合わせが行きます。</p>
+
+<div class="diagram">あなた → 「atlas-financials.jp ってどこ？」
+DNS    → 「185.199.108.153 だよ」
+あなた → そのIPアドレスにアクセス → サイトが表示される</div>
+
+<div class="metaphor">
+<div class="metaphor-label">メタファー</div>
+<p>DNSは昔の「104番（電話番号案内）」。電話番号が分からないとき104に電話して「○○さんの番号を教えて」と聞いた。DNSはインターネット版の104番。</p>
+</div>
+
+<h3>DNSの歴史</h3>
+
+<div class="timeline">
+<div class="timeline-item">
+<div class="timeline-year">1983年以前</div>
+<div class="timeline-desc">世界中のコンピュータの名前とIPアドレスが、たった1つのテキストファイル（HOSTS.TXT）に書かれていた。新しいコンピュータが追加されるたびに、世界中の人がそのファイルをダウンロードし直していた。</div>
+</div>
+<div class="timeline-item">
+<div class="timeline-year">1983年</div>
+<div class="timeline-desc">Paul Mockapetrisが「分散型電話帳」としてDNSを発明。1つのファイルではなく、世界中のサーバーが分担して名前解決を行う仕組みに。</div>
+</div>
+<div class="timeline-item">
+<div class="timeline-year">現在</div>
+<div class="timeline-desc">世界中に数千のDNSサーバーが存在。Google（8.8.8.8）やCloudflare（1.1.1.1）などの公開DNSが無料で利用可能。毎日数兆件の問い合わせを処理。</div>
+</div>
+</div>
+</div>
+
+<!-- Section 3 -->
+<div class="section">
+<div class="section-num">03</div>
+<h2>DNSレコードの種類 — 電話帳の「欄」</h2>
+
+<p>電話帳に「電話番号」「FAX番号」「住所」など複数の欄があるように、DNSにも複数の種類（レコードタイプ）があります。</p>
+
+<div class="tbl-wrap">
+<table>
+<thead><tr><th>レコード</th><th>意味</th><th>Atlas での設定例</th></tr></thead>
+<tbody>
+<tr><td><span class="highlight">A</span></td><td>「このドメインの座標（IP）はここ」</td><td>atlas-financials.jp → 185.199.108.153</td></tr>
+<tr><td><span class="highlight">CNAME</span></td><td>「この名前は別の名前のエイリアス」</td><td>www → atlasfinancials.github.io</td></tr>
+<tr><td><span class="highlight">NS</span></td><td>「この電話帳の管理者は誰か」</td><td>01.dnsv.jp（お名前.comのサーバー）</td></tr>
+<tr><td><span class="highlight">TXT</span></td><td>「メモ欄（自由記述）」</td><td>ドメイン認証コード</td></tr>
+<tr><td><span class="highlight">MX</span></td><td>「メールの届け先」</td><td>メールサーバーの指定</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="metaphor">
+<div class="metaphor-label">メタファー</div>
+<p>Aレコードは「電話番号」。CNAMEは「こちらにお問い合わせください」という転送メモ。TXTは付箋紙に自由に書ける「メモ欄」。NSは「この電話帳はどの出版社が管理しているか」。</p>
+</div>
+</div>
+
+<!-- Section 4 -->
+<div class="section">
+<div class="section-num">04</div>
+<h2>DNS浸透 — なぜ「待つ」必要があるのか</h2>
+
+<p>DNSレコードを変更しても、すぐには世界中で反映されません。世界中に何千ものDNSサーバーがあり、それぞれがレコードのコピーを持っています。全てのコピーが更新されるまでの時間を<span class="highlight">DNS浸透（propagation）</span>と呼びます。</p>
+
+<div class="metaphor">
+<div class="metaphor-label">メタファー</div>
+<p>引っ越して転居届を出しても、すぐには全ての郵便物が新しい住所に届かない。各郵便局が情報を更新するのに時間がかかる。DNSも同じで、通常は数分〜数時間、最大で24〜48時間。</p>
+</div>
+
+<p>今回の実体験では、お名前.comでTXTレコードを追加してから約3分で主要なDNSサーバー（Google、Cloudflare、Quad9、OpenDNS）への浸透が完了しました。ただし、特定のサービス（今回はGitHub）が独自にキャッシュを持っている場合、さらに時間がかかることがあります。</p>
+</div>
+
+<!-- Section 5 -->
+<div class="section">
+<div class="section-num">05</div>
+<h2>GitHub Pages — 無料のウェブサーバー</h2>
+
+<p>通常、ウェブサイトを公開するにはサーバー（コンピュータ）を借りて、そこにファイルを置く必要があります。月額数千円〜数万円かかります。</p>
+
+<p><span class="highlight">GitHub Pages</span>は、GitHubが提供する無料のホスティングサービスです。HTMLファイルをGitHubのリポジトリに入れると、自動的にインターネット上で公開してくれます。</p>
+
+<div class="metaphor">
+<div class="metaphor-label">メタファー</div>
+<p>GitHub Pagesは「無料のレンタルギャラリー」。あなたの作品（HTMLファイル）をギャラリー（リポジトリ）に持ち込むと、看板を出して一般公開してくれる。デフォルトの看板（atlasfinancials.github.io）は無料。自分のブランド看板（atlas-financials.jp）を出す場合は身分証明が必要。</p>
+</div>
+
+<div class="diagram">リポジトリにHTMLを置く
+  ↓
+GitHub Pages が自動でビルド
+  ↓
+atlasfinancials.github.io で公開
+  ↓
+カスタムドメイン設定（CNAME）
+  ↓
+atlas-financials.jp で公開</div>
+</div>
+
+<!-- Section 6 -->
+<div class="section">
+<div class="section-num">06</div>
+<h2>ドメイン認証 — 「私が本物の持ち主です」</h2>
+
+<p>GitHub Organizationでカスタムドメインを使うには、ドメインの所有権を証明する必要があります。これが<span class="highlight">ドメイン認証（Domain Verification）</span>です。</p>
+
+<div class="diagram">GitHub: 「このコード（9f82ce...）をDNSに書いてください」
+  ↓
+あなた: お名前.comでTXTレコードを追加
+  ↓
+GitHub: 「DNSを確認... コードがある！
+         DNSを編集できるのはドメインの持ち主だけ。
+         あなたは本物の持ち主ですね ✓」</div>
+
+<div class="metaphor">
+<div class="metaphor-label">メタファー</div>
+<p>ビルの管理会社（GitHub）が「あなたのブランドの看板を出すなら、身分証明をしてください」と言う。方法は「あなたしか貼れない場所（DNS）に、指定したコード（TXTレコード）を貼ってください」。貼れたということは、そのドメインの管理者 = 本物の持ち主。</p>
+</div>
+
+<p>この「特定の場所にコードを設置して所有権を証明する」パターンは、ウェブの世界で広く使われています。Google Search ConsoleやSSL証明書の発行でも同じ仕組みです。</p>
+</div>
+
+<!-- Section 7 -->
+<div class="section">
+<div class="section-num">07</div>
+<h2>SSL証明書 — 通信を暗号化する鍵</h2>
+
+<p>ブラウザのアドレスバーに鍵マークが表示されているサイトがありますよね。あれは<span class="highlight">SSL/TLS証明書</span>が有効で、通信が暗号化されていることを意味します。</p>
+
+<div class="tbl-wrap">
+<table>
+<thead><tr><th>プロトコル</th><th>安全性</th><th>メタファー</th></tr></thead>
+<tbody>
+<tr><td>http://（暗号化なし）</td><td style="color:var(--red)">危険</td><td>ハガキ — 配達中に誰でも内容を読める</td></tr>
+<tr><td>https://（暗号化あり）</td><td style="color:var(--green)">安全</td><td>封書 — 封を開けないと中身が見えない</td></tr>
+</tbody>
+</table>
+</div>
+
+<p>GitHub Pagesでは、ドメイン認証が完了するとSSL証明書を無料で自動発行してくれます（Let's Encryptという無料の認証機関を利用）。</p>
+</div>
+
+<!-- Section 8 -->
+<div class="section">
+<div class="section-num">08</div>
+<h2>今回の設定の全体像</h2>
+
+<p>Atlas Financialsのドメイン設定で実際に行ったことを時系列で整理します。</p>
+
+<div class="diagram">① atlas-financials.jp を取得（お名前.com）
+  ↓
+② Aレコード設定 → GitHub Pages の IPアドレスへ向ける
+  ↓
+③ CNAMEレコード設定 → www を atlasfinancials.github.io へ
+  ↓
+④ GitHub Pages でCNAMEファイルを設置
+  ↓
+⑤ TXTレコード追加 → ドメイン認証コード  ← 今ここ
+  ↓
+⑥ GitHub でドメイン認証を完了
+  ↓
+⑦ SSL証明書（HTTPS）を有効化
+  ↓
+⑧ atlas-financials.jp で安全にアクセス可能に</div>
+</div>
+
+<!-- Term Cards -->
+<div class="section">
+<div class="section-num">★</div>
+<h2>用語まとめカード</h2>
+
+<div class="term-grid">
+<div class="term-card">
+<div class="term-name">ドメイン</div>
+<div class="term-meaning">ウェブサイトの名前</div>
+<div class="term-metaphor">📍 住所</div>
+</div>
+<div class="term-card">
+<div class="term-name">IPアドレス</div>
+<div class="term-meaning">コンピュータの番号</div>
+<div class="term-metaphor">🌐 緯度経度</div>
+</div>
+<div class="term-card">
+<div class="term-name">DNS</div>
+<div class="term-meaning">名前→IP変換システム</div>
+<div class="term-metaphor">📞 104番（電話帳）</div>
+</div>
+<div class="term-card">
+<div class="term-name">Aレコード</div>
+<div class="term-meaning">ドメイン→IP直接対応</div>
+<div class="term-metaphor">📖 電話番号欄</div>
+</div>
+<div class="term-card">
+<div class="term-name">CNAME</div>
+<div class="term-meaning">別ドメインへの転送</div>
+<div class="term-metaphor">↪️ 転送メモ</div>
+</div>
+<div class="term-card">
+<div class="term-name">TXTレコード</div>
+<div class="term-meaning">自由記述のメモ欄</div>
+<div class="term-metaphor">📝 付箋紙</div>
+</div>
+<div class="term-card">
+<div class="term-name">DNS浸透</div>
+<div class="term-meaning">設定変更が広がる過程</div>
+<div class="term-metaphor">📮 転居届の反映待ち</div>
+</div>
+<div class="term-card">
+<div class="term-name">GitHub Pages</div>
+<div class="term-meaning">無料ウェブホスティング</div>
+<div class="term-metaphor">🖼️ 無料ギャラリー</div>
+</div>
+<div class="term-card">
+<div class="term-name">ドメイン認証</div>
+<div class="term-meaning">所有権の証明</div>
+<div class="term-metaphor">🪪 身分証明書</div>
+</div>
+<div class="term-card">
+<div class="term-name">SSL証明書</div>
+<div class="term-meaning">通信暗号化の証明</div>
+<div class="term-metaphor">✉️ 封書の封印</div>
+</div>
+</div>
+</div>
+
+</div>
+
+<div class="footer">
+<a href="../index.html" style="color:var(--gold);text-decoration:none">← Knowledge Base に戻る</a><br><br>
+Atlas Knowledge Base — 2026年3月31日
+</div>
+
+<script>
+function toggleTheme(){
+  var t=document.documentElement.getAttribute('data-theme')==='dark'?'light':'dark';
+  document.documentElement.setAttribute('data-theme',t);
+  localStorage.setItem('atlas-kb-theme',t);
+  document.querySelector('.theme-toggle').textContent=t==='dark'?'☀️':'🌙';
+}
+(function(){
+  var s=localStorage.getItem('atlas-kb-theme');
+  if(s==='dark'){document.documentElement.setAttribute('data-theme','dark');document.querySelector('.theme-toggle').textContent='☀️';}
+})();
+</script>
+</body>
+</html>
